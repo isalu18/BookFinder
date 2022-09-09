@@ -27,29 +27,60 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
     @State var currentIndex: Int = 0
     
     var body: some View {
-        GeometryReader { proxy in
+        VStack {
+            GeometryReader { proxy in
+                
+                let width = proxy.size.width - (trailingSpace - spacing)
+                let adjustmentWidth = (trailingSpace / 2) - spacing
+                
+                HStack(spacing: spacing) {
+                    ForEach(list) { book in
+                        content(book)
+                            .frame(width: proxy.size.width - trailingSpace)
+                    }
+                }
+                .padding(.horizontal, spacing)
+                .offset(x: (CGFloat(currentIndex) * -width) + (currentIndex != 0 ? adjustmentWidth : 0) + offSet)
+                .gesture(
+                    DragGesture()
+                        .updating($offSet, body: { value, out, _ in
+                            out = value.translation.width
+                        })
+                        .onEnded({ value in
+                            let offSetX = value.translation.width
+                            
+                            let progress = -offSetX / width
+                            
+                            let roundIndex = progress.rounded()
+                            
+                            currentIndex = max(min(currentIndex + Int(roundIndex), list.count - 1), 0)
+                            
+                            currentIndex = index
+                        })
+                        .onChanged({ value in
+                            let offSetX = value.translation.width
+                            
+                            let progress = -offSetX / width
+                            
+                            let roundIndex = progress.rounded()
+                            
+                            index = max(min(currentIndex + Int(roundIndex), list.count - 1), 0)
+                        })
+                )
+            }
+            .frame(height: 500)
+            .animation(.easeInOut, value: offSet == 0)
             
-            let width = proxy.size.width
-            
-            HStack(spacing: spacing) {
-                ForEach(list) { book in
-                    content(book)
-                        .frame(width: proxy.size.width - trailingSpace)
+            HStack(spacing: 10) {
+                ForEach(list.indices, id: \.self) { index in
+                    Circle()
+                        .fill(.black.opacity(currentIndex == index ? 1 : 0.1))
+                        .frame(width: 10, height: 10)
+                        .scaleEffect(currentIndex == index ? 1.4 : 1)
+                        .animation(.spring(), value: currentIndex == index)
                 }
             }
-            .padding(.horizontal, spacing)
-            .offset(x: (CGFloat(currentIndex) * -width) + offSet)
-            .gesture(
-                DragGesture()
-                    .updating($offSet, body: { value, out, _ in
-                        out = value.translation.width
-                    })
-                    .onEnded({ value in
-                        let offSetX = value.translation.width
-                    })
-            )
         }
-        .animation(.easeInOut, value: offSet == 0)
     }
 }
 
