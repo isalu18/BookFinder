@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct SnapCarousel<Content: View, T: Identifiable>: View {
+    var category: String
     var content: (T) -> Content
     var list: [T]
     var spacing: CGFloat
     var trailingSpace: CGFloat
     
     @Binding var index: Int
+    @State private var height = 0.0
     
-    init(spacing: CGFloat = 15, trailingSpace: CGFloat = 100, index: Binding<Int>, items: [T], @ViewBuilder content: @escaping (T) -> Content) {
+    init(spacing: CGFloat = 15, trailingSpace: CGFloat = 100, category: String, index: Binding<Int>, items: [T], @ViewBuilder content: @escaping (T) -> Content) {
         self.list = items
         self.spacing = spacing
         self.trailingSpace = trailingSpace
+        self.category = category
         self._index = index
         self.content = content
     }
@@ -28,6 +31,10 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
     
     var body: some View {
         VStack {
+            Text(category)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.title3)
+                .padding()
             GeometryReader { proxy in
                 
                 let width = proxy.size.width - (trailingSpace - spacing)
@@ -67,8 +74,11 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
                             index = max(min(currentIndex + Int(roundIndex), list.count - 1), 0)
                         })
                 )
+                .onAppear {
+                    height = proxy.size.width
+                }
             }
-            .frame(height: 500)
+            .frame(height: height * 1.15)
             .animation(.easeInOut, value: offSet == 0)
             
             HStack(spacing: 10) {
@@ -80,6 +90,7 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
                         .animation(.spring(), value: currentIndex == index)
                 }
             }
+            .padding(.vertical)
         }
     }
 }

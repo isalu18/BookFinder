@@ -25,47 +25,49 @@ struct ContentView: View {
         ZStack {
             Color("lightBrown")
                 .ignoresSafeArea()
-            ScrollView {
-                VStack(spacing: 15) {
-                    Text("BookFinder 📚")
-                        .font(.title.bold())
-                        .frame( maxWidth: .infinity, alignment: .leading)
-                    //                    .padding()
-                    Text("Categories")
-                        .font(.title2.bold())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    //                .padding()
-                    
-                    SnapCarousel(index: $currentIndex, items: booksSample) { book in
-                        GeometryReader{ proxy in
-                            VStack {
-                                image
-                                    .data(url: URL(string: book.url)!)
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: proxy.size.width)
-                                    .cornerRadius(20)
-                                Text(book.name)
+            VStack {
+                Text("BookFinder 📚")
+                    .font(.title.bold())
+                    .frame( maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                ScrollView {
+                    VStack(spacing: 15) {
+                        Text("Categories")
+                            .font(.title2.bold())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                        
+                        SnapCarousel(category: "Horror", index: $currentIndex, items: booksSample) { book in
+                            GeometryReader{ proxy in
+                                VStack {
+                                    image
+                                        .data(url: URL(string: book.url)!)
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: proxy.size.width)
+                                        .cornerRadius(20)
+                                    Text(book.name)
+                                }
+                            }
+                        }
+                        SnapCarousel(category: "Romantic", index: $currentIndex, items: booksSample) { book in
+                            GeometryReader{ proxy in
+                                VStack {
+                                    image
+                                        .data(url: URL(string: book.url)!)
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: proxy.size.width)
+                                        .cornerRadius(20)
+                                    Text(book.name)
+                                }
                             }
                         }
                     }
-                    SnapCarousel(index: $currentIndex, items: booksSample) { book in
-                        GeometryReader{ proxy in
-                            VStack {
-                                image
-                                    .data(url: URL(string: book.url)!)
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: proxy.size.width)
-                                    .cornerRadius(20)
-                                Text(book.name)
-                            }
-                        }
+                    .frame(maxHeight: .infinity, alignment: .top)
+                    .onAppear {
+                        //                for index in 1...5 {
+                        //                    books.append(Book(id: UUID(), name: "Harry Potter", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"))
+                        //                }
                     }
-                }
-                .frame(maxHeight: .infinity, alignment: .top)
-                .onAppear {
-                    //                for index in 1...5 {
-                    //                    books.append(Book(id: UUID(), name: "Harry Potter", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"))
-                    //                }
                 }
             }
         }

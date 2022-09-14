@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5843CD2728D192E600CEA788 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5843CD2628D192E600CEA788 /* SearchBarView.swift */; };
 		587EBFCA28C576FD004C7219 /* BookFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587EBFC928C576FD004C7219 /* BookFinderApp.swift */; };
 		587EBFCC28C576FD004C7219 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587EBFCB28C576FD004C7219 /* ContentView.swift */; };
 		587EBFCE28C576FE004C7219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 587EBFCD28C576FE004C7219 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5843CD2628D192E600CEA788 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		587EBFC628C576FD004C7219 /* BookFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		587EBFC928C576FD004C7219 /* BookFinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFinderApp.swift; sourceTree = "<group>"; };
 		587EBFCB28C576FD004C7219 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				587EBFCB28C576FD004C7219 /* ContentView.swift */,
 				58B8D7D428C6BC9400B528B1 /* BookView.swift */,
 				58A0EAB828C6EAB90091D034 /* SnapCarousel.swift */,
+				5843CD2628D192E600CEA788 /* SearchBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				587EBFCC28C576FD004C7219 /* ContentView.swift in Sources */,
 				58B8D7D328C6B6EC00B528B1 /* Book.swift in Sources */,
 				58B8D7D128C6B59C00B528B1 /* Extensions.swift in Sources */,
+				5843CD2728D192E600CEA788 /* SearchBarView.swift in Sources */,
 				58A0EAB928C6EAB90091D034 /* SnapCarousel.swift in Sources */,
 				587EBFCA28C576FD004C7219 /* BookFinderApp.swift in Sources */,
 				58B8D7D528C6BC9400B528B1 /* BookView.swift in Sources */,

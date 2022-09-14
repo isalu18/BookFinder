@@ -38,7 +38,7 @@ struct BookView: View {
             Text("BookFinder 📚")
                 .font(.title)
                 .bold()
-                .frame( maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
             
             TabView {
