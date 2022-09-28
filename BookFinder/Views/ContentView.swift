@@ -15,6 +15,7 @@ struct ContentView: View {
         Book(id: UUID(), name: "El Hobbit", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
     ]
     
+    @ObservedObject var categoryVM = CategoryViewModel()
     @State var currentIndex: Int = 0
     @State var books: [Book] = [
         
@@ -37,15 +38,15 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
                         
-                        SnapCarousel(category: "Horror", index: $currentIndex, items: booksSample) { book in
+                        SnapCarousel(category: categoryVM.category.name, index: $currentIndex, items: categoryVM.books) { book in
                             GeometryReader{ proxy in
                                 VStack {
                                     image
-                                        .data(url: URL(string: book.url)!)
+                                        .data(url: URL(string: categoryVM.getImageURL(book.cover_edition_key))!)
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: proxy.size.width)
                                         .cornerRadius(20)
-                                    Text(book.name)
+                                    Text(book.title)
                                 }
                             }
                         }
@@ -64,9 +65,11 @@ struct ContentView: View {
                     }
                     .frame(maxHeight: .infinity, alignment: .top)
                     .onAppear {
+                        
                         //                for index in 1...5 {
                         //                    books.append(Book(id: UUID(), name: "Harry Potter", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"))
                         //                }
+                        categoryVM.fetchBooksByCategory(name: "horror")
                     }
                 }
             }
