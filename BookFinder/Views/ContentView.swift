@@ -15,11 +15,12 @@ struct ContentView: View {
         Book(id: UUID(), name: "El Hobbit", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
     ]
     
-    @ObservedObject var categoryVM = CategoryViewModel()
+    @StateObject var viewModel = CategoryViewModel()
     @State var currentIndex: Int = 0
     @State var books: [Book] = [
         
     ]
+
     let image = Image(systemName: "person.fill")
     
     var body: some View {
@@ -38,11 +39,11 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
                         
-                        SnapCarousel(category: categoryVM.category.name, index: $currentIndex, items: categoryVM.books) { book in
+                        SnapCarousel(category: viewModel.horrorCategory.name, index: $currentIndex, items: viewModel.horrorCategory.works) { book in
                             GeometryReader{ proxy in
                                 VStack {
                                     image
-                                        .data(url: URL(string: categoryVM.getImageURL(book.cover_edition_key))!)
+                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: proxy.size.width)
                                         .cornerRadius(20)
@@ -50,15 +51,15 @@ struct ContentView: View {
                                 }
                             }
                         }
-                        SnapCarousel(category: "Romantic", index: $currentIndex, items: booksSample) { book in
+                        SnapCarousel(category: viewModel.fantasyCategory.name, index: $currentIndex, items: viewModel.fantasyCategory.works) { book in
                             GeometryReader{ proxy in
                                 VStack {
                                     image
-                                        .data(url: URL(string: book.url)!)
+                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: proxy.size.width)
                                         .cornerRadius(20)
-                                    Text(book.name)
+                                    Text(book.title)
                                 }
                             }
                         }
@@ -69,7 +70,8 @@ struct ContentView: View {
                         //                for index in 1...5 {
                         //                    books.append(Book(id: UUID(), name: "Harry Potter", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"))
                         //                }
-                        categoryVM.fetchBooksByCategory(name: "horror")
+//                        categoryVM.fetchBooksByCategory(name: "horror")
+//                        categoryVM.getHorrorBooks()
                     }
                 }
             }
