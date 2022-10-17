@@ -11,20 +11,22 @@ import Combine
 //MARK: - Multiple API Call (Dispatch Group)
 
 protocol CategoryViewModelProtocol {
-    var bag: Set<AnyCancellable> { get set }
-    var category: BookCategory { get set }
-    var books: [Items] { get set }
+//    var horrorCategory: HorrorCategory { get set }
+//    var fantasyCategory: FantasyCategory { get set }
+//    var historyCategory: HistoryCategory { get set }
+//    var romanceCategory: RomanceCategory { get set }
+//    var programmingCategory: ProgrammingCategory { get set }
     
     func fetchBooksWithDispatchGroup()
 }
 
 class CategoryViewModel: CategoryViewModelProtocol, ObservableObject {
-    internal var bag = Set<AnyCancellable>()
-    var horrorCategory = HorrorCategory()
-    var fantasyCategory = FantasyCategory()
+    var horrorCategory = BookCategory()
+    var fantasyCategory = BookCategory()
+    var historyCategory = BookCategory()
+    var romanceCategory = BookCategory()
+    var programmingCategory = BookCategory()
     
-    @Published var category = BookCategory()
-    @Published var books = [Items]()
     @Published var isLoading: Bool = false
     
     init() {
@@ -36,25 +38,65 @@ class CategoryViewModel: CategoryViewModelProtocol, ObservableObject {
         
         dispatchGroup.enter()
         
-        Extensions.getData(EndPoints.horror.url, HorrorCategory.self) { data in
+        Extensions.getData(EndPoints.horror.url, BookCategory.self) { data in
             self.horrorCategory = data
-            print("horror: \(self.horrorCategory)")
-            
             dispatchGroup.leave()
         }
         
         dispatchGroup.enter()
                 
-        Extensions.getData(EndPoints.fantasy.url, FantasyCategory.self) { data in
+        Extensions.getData(EndPoints.fantasy.url, BookCategory.self) { data in
             self.fantasyCategory = data
-            print("fantasy: \(self.fantasyCategory)")
-            
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        
+        Extensions.getData(EndPoints.history.url, BookCategory.self) { data in
+            self.historyCategory = data
+            print("history: \(self.historyCategory)")
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        
+        Extensions.getData(EndPoints.romance.url, BookCategory.self) { data in
+            self.romanceCategory = data
+            print("mental: \(self.romanceCategory)")
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        
+        Extensions.getData(EndPoints.programming.url, BookCategory.self) { data in
+            self.programmingCategory = data
+            print("programming: \(self.programmingCategory)")
             dispatchGroup.leave()
         }
         
         dispatchGroup.notify(queue: .main) {
             self.isLoading = true
         }
+    }
+    
+    var horrorTitle: String {
+        horrorCategory.name.capitalized
+    }
+    
+    var fantasyTitle: String {
+        fantasyCategory.name.capitalized
+    }
+    
+    var historyTitle: String {
+        historyCategory.name.capitalized
+    }
+    
+    var romanceTitle: String {
+        romanceCategory.name.capitalized
+    }
+    
+    var programmingTitle: String {
+        programmingCategory.name.capitalized
     }
     
     func getImageURL(_ key: String) -> String {

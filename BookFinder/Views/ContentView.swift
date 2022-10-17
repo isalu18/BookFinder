@@ -8,18 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    let booksSample: [Book] = [
-        Book(id: UUID(), name: "Harry Potter", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"),
-        Book(id: UUID(), name: "El principito", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"),
-        Book(id: UUID(), name: "Percy Jackson", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"),
-        Book(id: UUID(), name: "El Hobbit", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")
-    ]
-    
     @StateObject var viewModel = CategoryViewModel()
     @State var currentIndex: Int = 0
-    @State var books: [Book] = [
-        
-    ]
 
     let image = Image(systemName: "person.fill")
     
@@ -39,7 +29,7 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
                         
-                        SnapCarousel(category: viewModel.horrorCategory.name, index: $currentIndex, items: viewModel.horrorCategory.works) { book in
+                        SnapCarousel(category: viewModel.horrorTitle, index: $currentIndex, items: viewModel.horrorCategory.works) { book in
                             GeometryReader{ proxy in
                                 VStack {
                                     image
@@ -51,7 +41,43 @@ struct ContentView: View {
                                 }
                             }
                         }
-                        SnapCarousel(category: viewModel.fantasyCategory.name, index: $currentIndex, items: viewModel.fantasyCategory.works) { book in
+                        SnapCarousel(category: viewModel.fantasyTitle, index: $currentIndex, items: viewModel.fantasyCategory.works) { book in
+                            GeometryReader{ proxy in
+                                VStack {
+                                    image
+                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: proxy.size.width)
+                                        .cornerRadius(20)
+                                    Text(book.title)
+                                }
+                            }
+                        }
+                        SnapCarousel(category: viewModel.historyTitle, index: $currentIndex, items: viewModel.historyCategory.works) { book in
+                            GeometryReader{ proxy in
+                                VStack {
+                                    image
+                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: proxy.size.width)
+                                        .cornerRadius(20)
+                                    Text(book.title)
+                                }
+                            }
+                        }
+                        SnapCarousel(category: viewModel.romanceTitle, index: $currentIndex, items: viewModel.romanceCategory.works) { book in
+                            GeometryReader{ proxy in
+                                VStack {
+                                    image
+                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: proxy.size.width)
+                                        .cornerRadius(20)
+                                    Text(book.title)
+                                }
+                            }
+                        }
+                        SnapCarousel(category: viewModel.programmingTitle, index: $currentIndex, items: viewModel.programmingCategory.works) { book in
                             GeometryReader{ proxy in
                                 VStack {
                                     image
@@ -65,14 +91,6 @@ struct ContentView: View {
                         }
                     }
                     .frame(maxHeight: .infinity, alignment: .top)
-                    .onAppear {
-                        
-                        //                for index in 1...5 {
-                        //                    books.append(Book(id: UUID(), name: "Harry Potter", url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"))
-                        //                }
-//                        categoryVM.fetchBooksByCategory(name: "horror")
-//                        categoryVM.getHorrorBooks()
-                    }
                 }
             }
         }
