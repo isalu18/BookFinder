@@ -28,63 +28,47 @@ struct ContentView: View {
                             .font(.title2.bold())
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
-                        
-                        SnapCarousel(category: viewModel.horrorTitle, index: $currentIndex, items: viewModel.horrorCategory.works) { book in
+                        SnapCarousel(category: Category.horror.nameCapital, index: $currentIndex, items: viewModel.horrorCategory.works) { book in
                             GeometryReader{ proxy in
                                 VStack {
-                                    image
-                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
-                                        .aspectRatio(contentMode: .fit)
+                                    BookImageView(url: viewModel.fetchBookImage(book.cover_edition_key))
                                         .frame(width: proxy.size.width)
-                                        .cornerRadius(20)
                                     Text(book.title)
                                 }
                             }
                         }
-                        SnapCarousel(category: viewModel.fantasyTitle, index: $currentIndex, items: viewModel.fantasyCategory.works) { book in
+                        SnapCarousel(category: Category.fantasy.nameCapital, index: $currentIndex, items: viewModel.fantasyCategory.works) { book in
                             GeometryReader{ proxy in
                                 VStack {
-                                    image
-                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
-                                        .aspectRatio(contentMode: .fit)
+                                    BookImageView(url: viewModel.fetchBookImage(book.cover_edition_key))
                                         .frame(width: proxy.size.width)
-                                        .cornerRadius(20)
                                     Text(book.title)
                                 }
                             }
                         }
-                        SnapCarousel(category: viewModel.historyTitle, index: $currentIndex, items: viewModel.historyCategory.works) { book in
+                        SnapCarousel(category: Category.history.nameCapital, index: $currentIndex, items: viewModel.historyCategory.works) { book in
                             GeometryReader{ proxy in
                                 VStack {
-                                    image
-                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
-                                        .aspectRatio(contentMode: .fit)
+                                    BookImageView(url: viewModel.fetchBookImage(book.cover_edition_key))
                                         .frame(width: proxy.size.width)
-                                        .cornerRadius(20)
                                     Text(book.title)
                                 }
                             }
                         }
-                        SnapCarousel(category: viewModel.romanceTitle, index: $currentIndex, items: viewModel.romanceCategory.works) { book in
+                        SnapCarousel(category: Category.romance.nameCapital, index: $currentIndex, items: viewModel.romanceCategory.works) { book in
                             GeometryReader{ proxy in
                                 VStack {
-                                    image
-                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
-                                        .aspectRatio(contentMode: .fit)
+                                    BookImageView(url: viewModel.fetchBookImage(book.cover_edition_key))
                                         .frame(width: proxy.size.width)
-                                        .cornerRadius(20)
                                     Text(book.title)
                                 }
                             }
                         }
-                        SnapCarousel(category: viewModel.programmingTitle, index: $currentIndex, items: viewModel.programmingCategory.works) { book in
+                        SnapCarousel(category: Category.programming.nameCapital, index: $currentIndex, items: viewModel.programmingCategory.works) { book in
                             GeometryReader{ proxy in
                                 VStack {
-                                    image
-                                        .data(url: URL(string: viewModel.getImageURL(book.cover_edition_key))!)
-                                        .aspectRatio(contentMode: .fit)
+                                    BookImageView(url: viewModel.fetchBookImage(book.cover_edition_key))
                                         .frame(width: proxy.size.width)
-                                        .cornerRadius(20)
                                     Text(book.title)
                                 }
                             }

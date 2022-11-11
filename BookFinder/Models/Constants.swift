@@ -22,3 +22,11 @@ enum EndPoints: String{
         return Constants.url + self.rawValue
     }
 }
+
+enum Category: String {
+    case horror, fantasy, history, romance, programming
+    
+    var nameCapital: String {
+        self.rawValue.capitalized
+    }
+}

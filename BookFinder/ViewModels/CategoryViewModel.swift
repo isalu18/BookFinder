@@ -10,14 +10,9 @@ import Combine
 
 //MARK: - Multiple API Call (Dispatch Group)
 
-protocol CategoryViewModelProtocol {
-//    var horrorCategory: HorrorCategory { get set }
-//    var fantasyCategory: FantasyCategory { get set }
-//    var historyCategory: HistoryCategory { get set }
-//    var romanceCategory: RomanceCategory { get set }
-//    var programmingCategory: ProgrammingCategory { get set }
-    
+protocol CategoryViewModelProtocol {    
     func fetchBooksWithDispatchGroup()
+    func fetchBookImage(_ key: String) -> URL?
 }
 
 class CategoryViewModel: CategoryViewModelProtocol, ObservableObject {
@@ -54,7 +49,7 @@ class CategoryViewModel: CategoryViewModelProtocol, ObservableObject {
         
         Extensions.getData(EndPoints.history.url, BookCategory.self) { data in
             self.historyCategory = data
-            print("history: \(self.historyCategory)")
+//            print("history: \(self.historyCategory)")
             dispatchGroup.leave()
         }
         
@@ -62,7 +57,7 @@ class CategoryViewModel: CategoryViewModelProtocol, ObservableObject {
         
         Extensions.getData(EndPoints.romance.url, BookCategory.self) { data in
             self.romanceCategory = data
-            print("mental: \(self.romanceCategory)")
+//            print("mental: \(self.romanceCategory)")
             dispatchGroup.leave()
         }
         
@@ -70,7 +65,7 @@ class CategoryViewModel: CategoryViewModelProtocol, ObservableObject {
         
         Extensions.getData(EndPoints.programming.url, BookCategory.self) { data in
             self.programmingCategory = data
-            print("programming: \(self.programmingCategory)")
+//            print("programming: \(self.programmingCategory)")
             dispatchGroup.leave()
         }
         
@@ -79,32 +74,12 @@ class CategoryViewModel: CategoryViewModelProtocol, ObservableObject {
         }
     }
     
-    var horrorTitle: String {
-        horrorCategory.name.capitalized
-    }
-    
-    var fantasyTitle: String {
-        fantasyCategory.name.capitalized
-    }
-    
-    var historyTitle: String {
-        historyCategory.name.capitalized
-    }
-    
-    var romanceTitle: String {
-        romanceCategory.name.capitalized
-    }
-    
-    var programmingTitle: String {
-        programmingCategory.name.capitalized
-    }
-    
-    func getImageURL(_ key: String) -> String {
-        return "https://covers.openlibrary.org/b/olid/\(key)-L.jpg"
+    func fetchBookImage(_ key: String) -> URL? {
+        URL(string: "https://covers.openlibrary.org/b/olid/\(key)-L.jpg")
     }
 }
 
-//MARK: - Single API Call (Not used)
+//MARK: - Single API Call (Not used, only for demonstration purposes)
 
 //protocol CategoryViewModelProtocol {
 //    func fetchBooksByCategory(name: String)

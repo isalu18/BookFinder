@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Book: Identifiable {
+struct BookDetails: Identifiable {
     let id: UUID?
     let name: String
     let url: String
