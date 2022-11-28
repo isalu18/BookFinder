@@ -9,6 +9,7 @@ import Foundation
 
 struct BookDetails: Identifiable {
     let id: UUID?
-    let name: String
-    let url: String
+    let title: String
+    let description: String
+    let subjects: [String]
 }

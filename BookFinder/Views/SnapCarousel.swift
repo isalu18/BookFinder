@@ -32,7 +32,7 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
     var body: some View {
         VStack {
             Text(category)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .center)
                 .font(.title3)
                 .padding()
             GeometryReader { proxy in

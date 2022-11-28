@@ -8,7 +8,8 @@
 import Foundation
 
 struct Constants {
-    static let url = "https://openlibrary.org/subjects/"
+    static let categoryURL = "https://openlibrary.org/subjects/"
+    static let bookByIdURL = "https://openlibrary.org"
 }
 
 enum EndPoints: String{
@@ -19,7 +20,7 @@ enum EndPoints: String{
     case programming = "programming.json"
     
     var url: String {
-        return Constants.url + self.rawValue
+        return Constants.categoryURL + self.rawValue
     }
 }
 
